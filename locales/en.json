@@ -1,0 +1,90 @@
+{
+  "common": {
+    "accept": "Accept",
+    "reject": "Reject"
+  },
+  "privacy": {
+    "title": "Privacy Policy Consent",
+    "text1": "This site uses Google Analytics 4 (GA4).",
+    "text2": "By accessing, you agree to share your data (IP address, cookies, location, etc.) with Google and send it overseas.",
+    "text3": "We anonymize your data for privacy protection!",
+    "link1": "Learn more? (English)",
+    "link2": "Privacy Consent Form",
+    "warning": "By continuing to access, you agree that your data will be sent to the US! US laws may apply!"
+  },
+  "loading": {
+    "text": "A girl is praying..."
+  },
+  "header": {
+    "greeting": "Hi, nice to meet you! (◕‿◕✿)",
+    "name_prefix": "Call me ",
+    "name": "Nekotan Shizutoki",
+    "name_suffix": "",
+    "alt_name_prefix": "You can also call me ",
+    "alt_name": "Chronie",
+    "alt_name_suffix": "! ✨"
+  },
+  "birthday": {
+    "title": "🎂 Birthday Secret Story",
+    "today": "Today is my birthday! (＊´∀｀*)ﾉ",
+    "text1": "I descended to Earth on the ",
+    "text1_highlight": "first day of Virgo's magic",
+    "text2": "(The moonlight of the ",
+    "text2_highlight": "7th day of the 11th lunar month",
+    "text2_suffix": " was my lullaby! 🌙)"
+  },
+  "languages": {
+    "title": "🗣️ Language Pocket",
+    "text1": "I can speak ",
+    "text1_highlight": "Japanese, English, Simplified Chinese, and Traditional Chinese",
+    "text2": "all!",
+    "text3": "(Changing languages is as fun as changing Pokémon types! (◠‿◠✿))"
+  },
+  "acgn": {
+    "title": "🌈 ACGN Atomic Composition",
+    "text1": "Confirmed! Anime, Manga, Games, and Novels are ",
+    "text2": "the ",
+    "text2_highlight": "elementary particles",
+    "text3": " that shape my universe! ★~(◠‿◕✿)"
+  },
+  "infj_t": {
+    "title": "💖 Heart Puzzle (INFJ-T Limited Ver.)",
+    "charge_mode": "Charge Mode: ",
+    "charge_mode_value": "83% alone time is essential",
+    "charge_mode_suffix": "(Reading books in bed is pure bliss! (｡>ㅅ<｡))",
+    "brain_theater": "Brain Theater: ",
+    "brain_theater_value": "74% runaway fantasy",
+    "brain_theater_suffix": "(The door to another world is always open! 🚪✨)",
+    "emotion_antenna": "Emotion Antenna: ",
+    "emotion_antenna_value": "82% ultra-sensitive",
+    "emotion_antenna_suffix": "(I might sense your little sadness? (｡･ω･｡))",
+    "action_guideline": "Action Guideline: ",
+    "action_guideline_value": "83% planner cat",
+    "action_guideline_suffix": "(Creating to-do lists is my hobby ✓)",
+    "weather_heart": "Weather Heart: ",
+    "weather_heart_value": "82% sudden rain warning ☁️➡️🌧️",
+    "weather_heart_suffix": "(But when a rainbow appears, it clears up immediately! (๑´ڡ`๑))"
+  },
+  "lucky_sensor": {
+    "title": "🍀 Lucky Sensor",
+    "text1": "Weak signal... (",
+    "text1_highlight": "If I find a four-leaf clover, I'll be happy all day!",
+    "text1_suffix": "(⁄ ⁄•⁄ω⁄•⁄ ⁄))"
+  },
+  "game_planet": {
+    "title": "🎮 Game Planet",
+    "text1": "Currently, I'm gravity-captured by ",
+    "text1_highlight1": "Genshin Impact",
+    "text1_and": " and ",
+    "text1_highlight2": "Honkai: Star Rail",
+    "text2": "☆ミ(o･ω･)ﾉ"
+  },
+  "footer": {
+    "text1": "Nice to meet you!",
+    "text2": "Let's share a happy universe together!",
+    "text3": "(♡´౪`♡) Nyan♪"
+  },
+  "update_date": "✨ Updated August 18, 2025 ✨"
+}
+
+

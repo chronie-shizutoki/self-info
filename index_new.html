@@ -9,22 +9,20 @@
     <link rel="stylesheet" href="components/birthday.css">
     <link rel="stylesheet" href="components/splash-screen.css">
     <style>
-        /* 玻璃质感管理面板 */
+        /* 管理面板样式 */
         .management-panel {
             position: fixed;
             top: 0;
-            right: -420px;
-            width: 420px;
+            right: -450px;
+            width: 450px;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
             color: white;
             z-index: 10000;
-            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: right 0.3s ease;
             overflow-y: auto;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
         }
         
         .management-panel.show {
@@ -32,293 +30,219 @@
         }
         
         .panel-header {
-            padding: 25px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
         
-        .panel-title {
+        .panel-header h3 {
             margin: 0;
+            color: #a6deff;
             font-size: 18px;
-            font-weight: 600;
-            color: var(--primary-color, #a6deff);
-            text-shadow: 0 0 10px rgba(166, 222, 255, 0.3);
         }
         
         .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 35px;
-            height: 35px;
+            background: none;
             border: none;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-size: 18px;
+            font-size: 24px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.2s;
         }
         
         .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.1);
         }
         
         .panel-content {
             padding: 20px;
         }
         
-        .glass-section {
+        .panel-section {
             margin-bottom: 25px;
-            padding: 20px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
-        .section-title {
+        .panel-section h4 {
             margin: 0 0 15px 0;
+            color: #a6deff;
             font-size: 16px;
-            font-weight: 600;
-            color: var(--primary-color, #a6deff);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            border-bottom: 1px solid rgba(166, 222, 255, 0.3);
+            padding-bottom: 8px;
         }
         
         .form-group {
             margin-bottom: 15px;
         }
         
-        .form-label {
+        .form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
+            color: #ccc;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
         }
         
-        .form-input, .form-select, .form-textarea {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            color: white;
-            font-size: 14px;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
-        
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary-color, #a6deff);
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 0 3px rgba(166, 222, 255, 0.1);
-        }
-        
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .glass-btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             color: white;
+            box-sizing: border-box;
             font-size: 14px;
-            font-weight: 600;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #a6deff;
+            box-shadow: 0 0 0 2px rgba(166, 222, 255, 0.2);
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            margin: 5px 5px 5px 0;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 4px;
-            position: relative;
-            overflow: hidden;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.2s;
         }
         
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         
-        .glass-btn:active {
-            transform: translateY(0);
-        }
+        .btn-primary { background: #2196F3; color: white; }
+        .btn-success { background: #4CAF50; color: white; }
+        .btn-warning { background: #FF9800; color: white; }
+        .btn-danger { background: #f44336; color: white; }
+        .btn-info { background: #00BCD4; color: white; }
         
-        .glass-btn.primary {
-            background: linear-gradient(135deg, var(--primary-color, #a6deff) 0%, rgba(166, 222, 255, 0.8) 100%);
-            color: #000;
-        }
-        
-        .glass-btn.success {
-            background: linear-gradient(135deg, #4CAF50 0%, rgba(76, 175, 80, 0.8) 100%);
-        }
-        
-        .glass-btn.warning {
-            background: linear-gradient(135deg, #FF9800 0%, rgba(255, 152, 0, 0.8) 100%);
-        }
-        
-        .glass-btn.danger {
-            background: linear-gradient(135deg, #f44336 0%, rgba(244, 67, 54, 0.8) 100%);
-        }
-        
-        .glass-btn.full-width {
+        .btn-full {
             width: 100%;
-            margin: 8px 0;
+            margin: 5px 0;
         }
         
         .management-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border: none;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
             color: white;
-            font-size: 22px;
+            font-size: 20px;
             cursor: pointer;
             z-index: 9999;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         .management-toggle:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05) rotate(90deg);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .language-switcher {
-            position: fixed;
-            top: 85px;
-            right: 20px;
-            z-index: 9998;
-            padding: 10px 15px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-        
-        .language-switcher:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
         
         .block-item {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 16px;
-            margin: 12px 0;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.2s;
         }
         
         .block-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
         }
         
         .block-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .block-title {
-            font-weight: 600;
-            color: white;
-            font-size: 15px;
+            font-weight: bold;
+            color: #fff;
         }
         
         .block-type {
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
+            color: #aaa;
             background: rgba(255, 255, 255, 0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
+            padding: 2px 8px;
+            border-radius: 12px;
         }
         
         .block-controls {
             display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
         }
         
-        .block-controls .glass-btn {
-            padding: 6px 12px;
+        .block-controls .btn {
+            padding: 5px 10px;
             font-size: 12px;
-            margin: 2px;
+            margin: 0;
         }
         
-        .color-group {
+        .color-input-group {
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 10px;
         }
         
-        .color-preview {
+        .color-input-group input[type="color"] {
             width: 40px;
             height: 40px;
-            border-radius: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
         
-        .color-preview:hover {
-            transform: scale(1.1);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-        
-        .color-input {
-            opacity: 0;
-            position: absolute;
-            pointer-events: none;
-        }
-        
-        .color-text {
+        .color-input-group input[type="text"] {
             flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 12px;
+        }
+        
+        .language-switcher {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9998;
+            padding: 8px;
             border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            font-size: 13px;
-            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .drag-handle {
+            cursor: move;
+            color: #aaa;
+            margin-right: 10px;
+        }
+        
+        .drag-handle:hover {
+            color: #fff;
         }
         
         @media (max-width: 500px) {
@@ -328,22 +252,18 @@
             }
             
             .management-toggle {
-                top: 15px;
-                right: 15px;
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
             }
             
             .language-switcher {
-                top: 70px;
-                right: 15px;
+                top: 60px;
+                right: 10px;
                 font-size: 12px;
-                padding: 8px 12px;
-            }
-            
-            .glass-section {
-                padding: 15px;
+                padding: 6px;
             }
         }
     </style>
@@ -353,7 +273,7 @@
     <div id="loading-screen" class="splash-screen hidden">
         <div class="splash-content-girl">
             <div class="loader"></div>
-            <p class="splash-text" data-i18n="loading.text">加载中...</p>
+            <p class="splash-text">加载中...</p>
         </div>
     </div>
 
@@ -369,99 +289,78 @@
     <!-- Management Panel -->
     <div id="management-panel" class="management-panel">
         <div class="panel-header">
-            <h3 class="panel-title" data-i18n="management.title">🎨 内容管理系统</h3>
+            <h3>🎨 内容管理系统</h3>
             <button id="close-panel" class="close-btn">×</button>
         </div>
         <div class="panel-content">
             <!-- 页面设置 -->
-            <div class="glass-section">
-                <h4 class="section-title">
-                    📄 <span data-i18n="management.page_settings">页面设置</span>
-                </h4>
+            <div class="panel-section">
+                <h4>📄 页面设置</h4>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="management.page_title_label">页面标题</label>
-                    <input type="text" id="page-title-input" class="form-input" data-i18n-placeholder="management.page_title_placeholder" placeholder="请输入页面标题">
+                    <label>页面标题</label>
+                    <input type="text" id="page-title-input" placeholder="请输入页面标题">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="management.background_label">背景图片</label>
-                    <input type="text" id="background-input" class="form-input" data-i18n-placeholder="management.background_placeholder" placeholder="请输入背景图片URL或路径">
+                    <label>背景图片URL</label>
+                    <input type="text" id="background-input" placeholder="请输入背景图片URL或路径">
                 </div>
             </div>
             
             <!-- 内容块管理 -->
-            <div class="glass-section">
-                <h4 class="section-title">
-                    📝 <span data-i18n="management.content_management">内容块管理</span>
-                </h4>
+            <div class="panel-section">
+                <h4>📝 内容块管理</h4>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="management.block_type_label">内容块类型</label>
-                    <select id="block-type" class="form-select">
-                        <option value="header" data-i18n="block_types.header">标题块</option>
-                        <option value="text" data-i18n="block_types.text">文本块</option>
-                        <option value="list" data-i18n="block_types.list">列表块</option>
-                        <option value="custom" data-i18n="block_types.custom">自定义块</option>
+                    <label>内容块类型</label>
+                    <select id="block-type">
+                        <option value="header">标题块</option>
+                        <option value="text">文本块</option>
+                        <option value="list">列表块</option>
+                        <option value="custom">自定义块</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="management.block_title_label">内容块标题</label>
-                    <input type="text" id="block-title" class="form-input" data-i18n-placeholder="management.block_title_placeholder" placeholder="请输入内容块标题">
+                    <label>内容块标题</label>
+                    <input type="text" id="block-title" placeholder="请输入内容块标题">
                 </div>
-                <button class="glass-btn success full-width" onclick="addBlock()">
-                    <span data-i18n="management.add_block">+ 添加内容块</span>
-                </button>
+                <button class="btn btn-success btn-full" onclick="addBlock()">+ 添加内容块</button>
                 
                 <div id="blocks-list" style="margin-top: 20px;"></div>
             </div>
             
             <!-- 样式设置 -->
-            <div class="glass-section">
-                <h4 class="section-title">
-                    🎨 <span data-i18n="management.style_settings">样式设置</span>
-                </h4>
+            <div class="panel-section">
+                <h4>🎨 样式设置</h4>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="management.primary_color">主色调</label>
-                    <div class="color-group">
-                        <div class="color-preview" id="primary-color-preview" onclick="document.getElementById('primary-color').click()"></div>
-                        <input type="color" id="primary-color" class="color-input" value="#a6deff">
-                        <input type="text" id="primary-color-text" class="color-text" value="#a6deff">
+                    <label>主色调</label>
+                    <div class="color-input-group">
+                        <input type="color" id="primary-color" value="#a6deff">
+                        <input type="text" id="primary-color-text" value="#a6deff">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="management.highlight_color">高亮色</label>
-                    <div class="color-group">
-                        <div class="color-preview" id="highlight-color-preview" onclick="document.getElementById('highlight-color').click()"></div>
-                        <input type="color" id="highlight-color" class="color-input" value="#dbA6ff">
-                        <input type="text" id="highlight-color-text" class="color-text" value="#dbA6ff">
+                    <label>高亮色</label>
+                    <div class="color-input-group">
+                        <input type="color" id="highlight-color" value="#dbA6ff">
+                        <input type="text" id="highlight-color-text" value="#dbA6ff">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="management.text_color">文本色</label>
-                    <div class="color-group">
-                        <div class="color-preview" id="text-color-preview" onclick="document.getElementById('text-color').click()"></div>
-                        <input type="color" id="text-color" class="color-input" value="#ffa6d3">
-                        <input type="text" id="text-color-text" class="color-text" value="#ffa6d3">
+                    <label>文本色</label>
+                    <div class="color-input-group">
+                        <input type="color" id="text-color" value="#ffa6d3">
+                        <input type="text" id="text-color-text" value="#ffa6d3">
                     </div>
                 </div>
             </div>
             
             <!-- 配置管理 -->
-            <div class="glass-section">
-                <h4 class="section-title">
-                    💾 <span data-i18n="management.config_management">配置管理</span>
-                </h4>
-                <button class="glass-btn primary full-width" onclick="saveConfig()">
-                    💾 <span data-i18n="management.save_config">保存配置</span>
-                </button>
-                <button class="glass-btn warning full-width" onclick="exportConfig()">
-                    📤 <span data-i18n="management.export_config">导出配置</span>
-                </button>
-                <button class="glass-btn primary full-width" onclick="document.getElementById('import-file').click()">
-                    📥 <span data-i18n="management.import_config">导入配置</span>
-                </button>
+            <div class="panel-section">
+                <h4>💾 配置管理</h4>
+                <button class="btn btn-primary btn-full" onclick="saveConfig()">💾 保存配置</button>
+                <button class="btn btn-warning btn-full" onclick="exportConfig()">📤 导出配置</button>
+                <button class="btn btn-info btn-full" onclick="document.getElementById('import-file').click()">📥 导入配置</button>
                 <input type="file" id="import-file" style="display: none" accept=".json" onchange="importConfig(event)">
-                <button class="glass-btn danger full-width" onclick="resetConfig()">
-                    🔄 <span data-i18n="management.reset_config">重置配置</span>
-                </button>
+                <button class="btn btn-danger btn-full" onclick="resetConfig()">🔄 重置配置</button>
             </div>
         </div>
     </div>
@@ -481,7 +380,7 @@
         // 全局配置对象
         let config = {
             pageInfo: {
-                title: "自我介绍网站",
+                title: "我的自我介绍",
                 language: "default"
             },
             styles: {
@@ -533,18 +432,9 @@
 
             async loadTranslations(lang) {
                 try {
-                    // 加载UI翻译
-                    const uiFile = lang === 'default' ? 'ui.json' : `ui-${lang}.json`;
-                    const response = await fetch(`./locales/${uiFile}`);
-                    if (response.ok) {
-                        this.translations[lang] = await response.json();
-                    } else {
-                        // 回退到默认UI文件
-                        const defaultResponse = await fetch('./locales/ui.json');
-                        if (defaultResponse.ok) {
-                            this.translations[lang] = await defaultResponse.json();
-                        }
-                    }
+                    const response = await fetch(`./locales/${lang}.json`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    this.translations[lang] = await response.json();
                 } catch (error) {
                     console.error(`Could not load translations for ${lang}:`, error);
                     if (lang !== 'default' && !this.translations['default']) {
@@ -560,15 +450,12 @@
                     if (result && typeof result === 'object' && k in result) {
                         result = result[k];
                     } else {
-                        // 回退到默认语言
                         result = this.translations['default'];
-                        if (result) {
-                            for (const ek of keys) {
-                                if (result && typeof result === 'object' && ek in result) {
-                                    result = result[ek];
-                                } else {
-                                    return defaultValue;
-                                }
+                        for (const ek of keys) {
+                            if (result && typeof result === 'object' && ek in result) {
+                                result = result[ek];
+                            } else {
+                                return defaultValue;
                             }
                         }
                         break;
@@ -584,60 +471,14 @@
                 this.currentLang = lang;
                 localStorage.setItem('lang', lang);
                 this.applyTranslations();
-                this.updateContentDefaults();
             },
 
             applyTranslations() {
-                // 翻译带有data-i18n属性的元素
                 document.querySelectorAll('[data-i18n]').forEach(element => {
                     const key = element.getAttribute('data-i18n');
-                    const translation = this.translate(key);
-                    if (translation) {
-                        element.textContent = translation;
-                    }
+                    const defaultValue = element.getAttribute('data-i18n-default') || '';
+                    element.innerHTML = this.translate(key, defaultValue);
                 });
-
-                // 翻译placeholder
-                document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
-                    const key = element.getAttribute('data-i18n-placeholder');
-                    const translation = this.translate(key);
-                    if (translation) {
-                        element.placeholder = translation;
-                    }
-                });
-
-                // 翻译选项
-                document.querySelectorAll('option[data-i18n]').forEach(option => {
-                    const key = option.getAttribute('data-i18n');
-                    const translation = this.translate(key);
-                    if (translation) {
-                        option.textContent = translation;
-                    }
-                });
-            },
-
-            updateContentDefaults() {
-                // 根据当前语言更新默认内容
-                const defaults = this.translate('content_defaults', {});
-                config.contentBlocks.forEach(block => {
-                    if (block.type === 'header') {
-                        if (block.content.greeting === '请输入问候语' || block.content.greeting === 'Enter greeting') {
-                            block.content.greeting = defaults.greeting || '请输入问候语';
-                        }
-                        if (block.content.name === '请输入您的姓名' || block.content.name === 'Enter your name') {
-                            block.content.name = defaults.name || '请输入您的姓名';
-                        }
-                        if (block.content.subtitle === '请输入副标题' || block.content.subtitle === 'Enter subtitle') {
-                            block.content.subtitle = defaults.subtitle || '请输入副标题';
-                        }
-                    } else if (block.type === 'text') {
-                        if (block.content.text === '请输入关于您的介绍文本。您可以在这里写任何想要分享的内容。' || 
-                            block.content.text === 'Enter your introduction text. You can write anything you want to share here.') {
-                            block.content.text = defaults.about_text || '请输入关于您的介绍文本。您可以在这里写任何想要分享的内容。';
-                        }
-                    }
-                });
-                contentManager.applyConfig();
             }
         };
 
@@ -806,27 +647,22 @@
             bindColorEvents(inputId, configKey) {
                 const colorInput = document.getElementById(inputId);
                 const textInput = document.getElementById(inputId + '-text');
-                const preview = document.getElementById(inputId + '-preview');
 
-                const updateColor = (color) => {
+                colorInput.addEventListener('input', (e) => {
+                    const color = e.target.value;
                     config.styles[configKey] = color;
-                    colorInput.value = color;
                     textInput.value = color;
-                    preview.style.backgroundColor = color;
                     this.applyStyles();
-                };
+                });
 
-                colorInput.addEventListener('input', (e) => updateColor(e.target.value));
-                
                 textInput.addEventListener('input', (e) => {
                     const color = e.target.value;
                     if (/^#[0-9A-F]{6}$/i.test(color)) {
-                        updateColor(color);
+                        config.styles[configKey] = color;
+                        colorInput.value = color;
+                        this.applyStyles();
                     }
                 });
-
-                // 初始化预览色块
-                preview.style.backgroundColor = config.styles[configKey];
             }
 
             applyConfig() {
@@ -840,15 +676,10 @@
                 // 应用颜色
                 document.getElementById('primary-color').value = config.styles.primaryColor;
                 document.getElementById('primary-color-text').value = config.styles.primaryColor;
-                document.getElementById('primary-color-preview').style.backgroundColor = config.styles.primaryColor;
-                
                 document.getElementById('highlight-color').value = config.styles.highlightColor;
                 document.getElementById('highlight-color-text').value = config.styles.highlightColor;
-                document.getElementById('highlight-color-preview').style.backgroundColor = config.styles.highlightColor;
-                
                 document.getElementById('text-color').value = config.styles.infoTextColor;
                 document.getElementById('text-color-text').value = config.styles.infoTextColor;
-                document.getElementById('text-color-preview').style.backgroundColor = config.styles.infoTextColor;
 
                 this.applyStyles();
                 this.renderer.renderAll();
@@ -868,23 +699,18 @@
                 config.contentBlocks.forEach((block, index) => {
                     const item = document.createElement('div');
                     item.className = 'block-item';
-                    
-                    const blockTypeText = i18n.translate(`block_types.${block.type}`, block.type);
-                    const editText = i18n.translate('management.edit', '编辑');
-                    const toggleText = i18n.translate(block.enabled ? 'management.hide' : 'management.show', block.enabled ? '隐藏' : '显示');
-                    const deleteText = i18n.translate('management.delete', '删除');
-                    
                     item.innerHTML = `
                         <div class="block-header">
                             <div>
+                                <span class="drag-handle">⋮⋮</span>
                                 <span class="block-title">${block.title}</span>
-                                <span class="block-type">${blockTypeText}</span>
+                                <span class="block-type">${block.type}</span>
                             </div>
                         </div>
                         <div class="block-controls">
-                            <button class="glass-btn primary" onclick="contentManager.editBlock(${index})">${editText}</button>
-                            <button class="glass-btn ${block.enabled ? 'warning' : 'success'}" onclick="contentManager.toggleBlock(${index})">${toggleText}</button>
-                            <button class="glass-btn danger" onclick="contentManager.deleteBlock(${index})">${deleteText}</button>
+                            <button class="btn btn-primary" onclick="contentManager.editBlock(${index})">编辑</button>
+                            <button class="btn ${block.enabled ? 'btn-warning' : 'btn-success'}" onclick="contentManager.toggleBlock(${index})">${block.enabled ? '隐藏' : '显示'}</button>
+                            <button class="btn btn-danger" onclick="contentManager.deleteBlock(${index})">删除</button>
                         </div>
                     `;
                     list.appendChild(item);
@@ -893,37 +719,28 @@
 
             editBlock(index) {
                 const block = config.contentBlocks[index];
-                const titlePrompt = i18n.translate('prompts.edit_title', '编辑标题:');
-                const newTitle = prompt(titlePrompt, block.title);
+                const newTitle = prompt('编辑标题:', block.title);
                 if (newTitle !== null) block.title = newTitle;
 
                 switch (block.type) {
                     case 'header':
-                        const greetingPrompt = i18n.translate('prompts.edit_greeting', '编辑问候语:');
-                        const namePrompt = i18n.translate('prompts.edit_name', '编辑姓名:');
-                        const subtitlePrompt = i18n.translate('prompts.edit_subtitle', '编辑副标题:');
-                        
-                        const greeting = prompt(greetingPrompt, block.content.greeting);
-                        const name = prompt(namePrompt, block.content.name);
-                        const subtitle = prompt(subtitlePrompt, block.content.subtitle);
-                        
+                        const greeting = prompt('编辑问候语:', block.content.greeting);
+                        const name = prompt('编辑姓名:', block.content.name);
+                        const subtitle = prompt('编辑副标题:', block.content.subtitle);
                         if (greeting !== null) block.content.greeting = greeting;
                         if (name !== null) block.content.name = name;
                         if (subtitle !== null) block.content.subtitle = subtitle;
                         break;
                     case 'text':
-                        const textPrompt = i18n.translate('prompts.edit_text', '编辑文本:');
-                        const text = prompt(textPrompt, block.content.text);
+                        const text = prompt('编辑文本:', block.content.text);
                         if (text !== null) block.content.text = text;
                         break;
                     case 'list':
-                        const listPrompt = i18n.translate('prompts.edit_list', '编辑列表项 (用换行分隔):');
-                        const items = prompt(listPrompt, block.content.items.join('\n'));
+                        const items = prompt('编辑列表项 (用换行分隔):', block.content.items.join('\n'));
                         if (items !== null) block.content.items = items.split('\n').filter(item => item.trim());
                         break;
                     case 'custom':
-                        const htmlPrompt = i18n.translate('prompts.edit_html', '编辑HTML:');
-                        const html = prompt(htmlPrompt, block.content.html);
+                        const html = prompt('编辑HTML:', block.content.html);
                         if (html !== null) block.content.html = html;
                         break;
                 }
@@ -939,8 +756,7 @@
             }
 
             deleteBlock(index) {
-                const confirmText = i18n.translate('management.confirm_delete', '确定要删除这个内容块吗？');
-                if (confirm(confirmText)) {
+                if (confirm('确定要删除这个内容块吗？')) {
                     config.contentBlocks.splice(index, 1);
                     this.applyConfig();
                     this.renderBlocksList();
@@ -978,8 +794,7 @@
 
         function addBlock() {
             const type = document.getElementById('block-type').value;
-            const titleInput = document.getElementById('block-title');
-            const title = titleInput.value || i18n.translate('content_defaults.new_block', '新内容块');
+            const title = document.getElementById('block-title').value || '新内容块';
 
             const newBlock = {
                 id: 'block_' + Date.now(),
@@ -997,24 +812,19 @@
             config.contentBlocks.push(newBlock);
             contentManager.applyConfig();
             contentManager.renderBlocksList();
-            titleInput.value = '';
+            document.getElementById('block-title').value = '';
         }
 
         function getDefaultContent(type) {
-            const defaults = i18n.translate('content_defaults', {});
             switch (type) {
                 case 'header':
-                    return { 
-                        greeting: defaults.greeting || "请输入问候语", 
-                        name: defaults.name || "请输入姓名", 
-                        subtitle: defaults.subtitle || "请输入副标题" 
-                    };
+                    return { greeting: "请输入问候语", name: "请输入姓名", subtitle: "请输入副标题" };
                 case 'text':
-                    return { text: defaults.text || "请输入文本内容" };
+                    return { text: "请输入文本内容" };
                 case 'list':
-                    return { items: [defaults.list_item || "请输入列表项1", defaults.list_item || "请输入列表项2"] };
+                    return { items: ["请输入列表项1", "请输入列表项2"] };
                 case 'custom':
-                    return { html: `<p class="info-text">${defaults.custom_html || "请输入自定义HTML"}</p>` };
+                    return { html: '<p class="info-text">请输入自定义HTML</p>' };
                 default:
                     return {};
             }
@@ -1022,8 +832,7 @@
 
         function saveConfig() {
             localStorage.setItem('selfIntroConfig', JSON.stringify(config));
-            const message = i18n.translate('management.config_saved', '配置已保存！');
-            alert(message);
+            alert('配置已保存！');
         }
 
         function exportConfig() {
@@ -1045,25 +854,21 @@
             reader.onload = (e) => {
                 try {
                     const importedConfig = JSON.parse(e.target.result);
-                    const confirmText = i18n.translate('management.import_confirm', '导入配置将覆盖当前设置，确定继续吗？');
-                    if (confirm(confirmText)) {
+                    if (confirm('导入配置将覆盖当前设置，确定继续吗？')) {
                         Object.assign(config, importedConfig);
                         contentManager.applyConfig();
                         contentManager.renderBlocksList();
-                        const successText = i18n.translate('management.config_imported', '配置导入成功！');
-                        alert(successText);
+                        alert('配置导入成功！');
                     }
                 } catch (error) {
-                    const errorText = i18n.translate('management.config_error', '配置文件格式错误！');
-                    alert(errorText);
+                    alert('配置文件格式错误！');
                 }
             };
             reader.readAsText(file);
         }
 
         function resetConfig() {
-            const confirmText = i18n.translate('management.confirm_reset', '确定要重置所有配置吗？这将清除所有自定义内容。');
-            if (confirm(confirmText)) {
+            if (confirm('确定要重置所有配置吗？这将清除所有自定义内容。')) {
                 localStorage.removeItem('selfIntroConfig');
                 location.reload();
             }

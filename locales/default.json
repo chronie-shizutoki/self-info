@@ -1,0 +1,81 @@
+{
+  "common": {
+    "accept": "请输入同意按钮文本",
+    "reject": "请输入拒绝按钮文本"
+  },
+  "loading": {
+    "text": "请输入加载文本"
+  },
+  "header": {
+    "greeting": "请输入问候语",
+    "name_prefix": "请输入姓名前缀",
+    "name": "请输入您的姓名",
+    "name_suffix": "请输入姓名后缀",
+    "alt_name_prefix": "请输入别名前缀",
+    "alt_name": "请输入您的别名",
+    "alt_name_suffix": "请输入别名后缀"
+  },
+  "birthday": {
+    "title": "请输入生日部分标题",
+    "today": "请输入生日祝福语",
+    "text1": "请输入生日描述前半部分",
+    "text1_highlight": "请输入生日高亮文本1",
+    "text2": "请输入生日描述中间部分",
+    "text2_highlight": "请输入生日高亮文本2",
+    "text2_suffix": "请输入生日描述后半部分"
+  },
+  "languages": {
+    "title": "请输入语言部分标题",
+    "text1": "请输入语言描述前半部分",
+    "text1_highlight": "请输入您掌握的语言",
+    "text2": "请输入语言描述后半部分",
+    "text3": "请输入语言相关的补充说明"
+  },
+  "acgn": {
+    "title": "请输入兴趣爱好部分标题",
+    "text1": "请输入兴趣爱好描述前半部分",
+    "text2": "请输入兴趣爱好描述中间部分",
+    "text2_highlight": "请输入兴趣爱好高亮文本",
+    "text3": "请输入兴趣爱好描述后半部分"
+  },
+  "infj_t": {
+    "title": "请输入性格分析部分标题",
+    "charge_mode": "请输入充电模式标签",
+    "charge_mode_value": "请输入充电模式描述",
+    "charge_mode_suffix": "请输入充电模式补充说明",
+    "brain_theater": "请输入脑内剧场标签",
+    "brain_theater_value": "请输入脑内剧场描述",
+    "brain_theater_suffix": "请输入脑内剧场补充说明",
+    "emotion_antenna": "请输入情感天线标签",
+    "emotion_antenna_value": "请输入情感天线描述",
+    "emotion_antenna_suffix": "请输入情感天线补充说明",
+    "action_guideline": "请输入行动指南标签",
+    "action_guideline_value": "请输入行动指南描述",
+    "action_guideline_suffix": "请输入行动指南补充说明",
+    "weather_heart": "请输入天气之心标签",
+    "weather_heart_value": "请输入天气之心描述",
+    "weather_heart_suffix": "请输入天气之心补充说明"
+  },
+  "lucky_sensor": {
+    "title": "请输入幸运传感器部分标题",
+    "text1": "请输入幸运传感器描述前半部分",
+    "text1_highlight": "请输入幸运传感器高亮文本",
+    "text1_suffix": "请输入幸运传感器描述后半部分"
+  },
+  "game_planet": {
+    "title": "请输入游戏部分标题",
+    "text1": "请输入游戏描述前半部分",
+    "text1_highlight1": "请输入您喜欢的游戏1",
+    "text1_and": "请输入连接词",
+    "text1_highlight2": "请输入您喜欢的游戏2",
+    "text2": "请输入游戏描述后半部分"
+  },
+  "footer": {
+    "text1": "请输入结尾语1",
+    "text2": "请输入结尾语2",
+    "text3": "请输入结尾语3"
+  },
+  "update_date": "请输入更新日期",
+  "page_title": "请输入页面标题"
+}
+

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自我介绍网站 - 完全自定义版</title>
+    <link rel="stylesheet" href="components/style.css">
+    <link rel="stylesheet" href="components/liquid-glass-block.css">
+    <style>
+        .management-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            color: white;
+            z-index: 10000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .management-panel.show {
+            right: 0;
+        }
+        
+        .management-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 9999;
+        }
+        
+        .panel-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        .panel-section h4 {
+            margin-top: 0;
+            color: #a6deff;
+        }
+        
+        .panel-section input, .panel-section textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            box-sizing: border-box;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn-primary { background: #2196F3; color: white; }
+        .btn-success { background: #4CAF50; color: white; }
+        .btn-warning { background: #FF9800; color: white; }
+        .btn-danger { background: #f44336; color: white; }
+        
+        .block-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .block-controls {
+            margin-top: 10px;
+        }
+        
+        .block-controls button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 管理面板 -->
+    <div id="management-panel" class="management-panel">
+        <h3>内容管理系统</h3>
+        
+        <div class="panel-section">
+            <h4>页面设置</h4>
+            <input type="text" id="page-title-input" placeholder="页面标题" value="我的自我介绍">
+            <input type="text" id="background-input" placeholder="背景图片URL" value="components/background.jpeg">
+        </div>
+        
+        <div class="panel-section">
+            <h4>添加内容块</h4>
+            <select id="block-type">
+                <option value="header">标题块</option>
+                <option value="text">文本块</option>
+                <option value="list">列表块</option>
+                <option value="custom">自定义块</option>
+            </select>
+            <input type="text" id="block-title" placeholder="内容块标题">
+            <button class="btn btn-success" onclick="addBlock()">添加内容块</button>
+        </div>
+        
+        <div class="panel-section">
+            <h4>现有内容块</h4>
+            <div id="blocks-list"></div>
+        </div>
+        
+        <div class="panel-section">
+            <h4>样式设置</h4>
+            <label>主色调：<input type="color" id="primary-color" value="#a6deff"></label>
+            <label>高亮色：<input type="color" id="highlight-color" value="#dbA6ff"></label>
+            <label>文本色：<input type="color" id="text-color" value="#ffa6d3"></label>
+        </div>
+        
+        <div class="panel-section">
+            <button class="btn btn-primary" onclick="saveConfig()">保存配置</button>
+            <button class="btn btn-warning" onclick="exportConfig()">导出配置</button>
+            <button class="btn btn-primary" onclick="document.getElementById('import-file').click()">导入配置</button>
+            <input type="file" id="import-file" style="display: none" accept=".json" onchange="importConfig(event)">
+        </div>
+    </div>
+    
+    <!-- 管理按钮 -->
+    <button class="management-toggle" onclick="togglePanel()">⚙️</button>
+    
+    <!-- 内容容器 -->
+    <div id="content-container"></div>
+    
+    <script>
+        // 配置对象
+        let config = {
+            pageInfo: {
+                title: "我的自我介绍"
+            },
+            styles: {
+                backgroundImage: "components/background.jpeg",
+                primaryColor: "#a6deff",
+                highlightColor: "#dbA6ff",
+                infoTextColor: "#ffa6d3"
+            },
+            contentBlocks: [
+                {
+                    id: "header",
+                    type: "header",
+                    enabled: true,
+                    title: "个人信息",
+                    content: {
+                        greeting: "请输入问候语",
+                        name: "请输入您的姓名",
+                        subtitle: "请输入副标题"
+                    }
+                },
+                {
+                    id: "about",
+                    type: "text",
+                    enabled: true,
+                    title: "关于我",
+                    content: {
+                        text: "请输入关于您的介绍"
+                    }
+                }
+            ]
+        };
+        
+        // 管理面板控制
+        function togglePanel() {
+            document.getElementById('management-panel').classList.toggle('show');
+        }
+        
+        // 渲染内容
+        function renderContent() {
+            const container = document.getElementById('content-container');
+            container.innerHTML = '';
+            
+            // 应用样式
+            document.title = config.pageInfo.title;
+            document.body.style.setProperty('--background-image', `url("${config.styles.backgroundImage}")`);
+            document.documentElement.style.setProperty('--primary-color', config.styles.primaryColor);
+            document.documentElement.style.setProperty('--highlight-color', config.styles.highlightColor);
+            document.documentElement.style.setProperty('--info-text-color', config.styles.infoTextColor);
+            
+            // 渲染内容块
+            config.contentBlocks.forEach(block => {
+                if (!block.enabled) return;
+                
+                const section = document.createElement('div');
+                section.className = 'section';
+                section.style.marginBottom = '25px';
+                
+                const glassContainer = document.createElement('div');
+                glassContainer.className = 'glass-container-apple';
+                
+                if (block.title) {
+                    const title = document.createElement('h3');
+                    title.className = 'section-title';
+                    title.textContent = block.title;
+                    glassContainer.appendChild(title);
+                }
+                
+                switch (block.type) {
+                    case 'header':
+                        if (block.content.greeting) {
+                            const greeting = document.createElement('p');
+                            greeting.className = 'info-text';
+                            greeting.textContent = block.content.greeting;
+                            glassContainer.appendChild(greeting);
+                        }
+                        if (block.content.name) {
+                            const name = document.createElement('p');
+                            const nameSpan = document.createElement('strong');
+                            nameSpan.className = 'highlight';
+                            nameSpan.textContent = block.content.name;
+                            name.appendChild(nameSpan);
+                            glassContainer.appendChild(name);
+                        }
+                        if (block.content.subtitle) {
+                            const subtitle = document.createElement('p');
+                            subtitle.className = 'info-text';
+                            subtitle.textContent = block.content.subtitle;
+                            glassContainer.appendChild(subtitle);
+                        }
+                        section.style.cssText = 'display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; text-align: center;';
+                        break;
+                    case 'text':
+                        const text = document.createElement('p');
+                        text.className = 'info-text';
+                        text.textContent = block.content.text;
+                        glassContainer.appendChild(text);
+                        break;
+                    case 'list':
+                        const list = document.createElement('ul');
+                        block.content.items.forEach(item => {
+                            const li = document.createElement('li');
+                            li.className = 'info-text';
+                            li.textContent = item;
+                            list.appendChild(li);
+                        });
+                        glassContainer.appendChild(list);
+                        break;
+                    case 'custom':
+                        glassContainer.innerHTML += block.content.html;
+                        break;
+                }
+                
+                section.appendChild(glassContainer);
+                container.appendChild(section);
+            });
+        }
+        
+        // 渲染内容块列表
+        function renderBlocksList() {
+            const list = document.getElementById('blocks-list');
+            list.innerHTML = '';
+            
+            config.contentBlocks.forEach((block, index) => {
+                const item = document.createElement('div');
+                item.className = 'block-item';
+                item.innerHTML = `
+                    <strong>${block.title}</strong> (${block.type})
+                    <div class="block-controls">
+                        <button class="btn btn-primary" onclick="editBlock(${index})">编辑</button>
+                        <button class="btn ${block.enabled ? 'btn-warning' : 'btn-success'}" onclick="toggleBlock(${index})">${block.enabled ? '隐藏' : '显示'}</button>
+                        <button class="btn btn-danger" onclick="deleteBlock(${index})">删除</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+        
+        // 添加内容块
+        function addBlock() {
+            const type = document.getElementById('block-type').value;
+            const title = document.getElementById('block-title').value || '新内容块';
+            
+            const newBlock = {
+                id: 'block_' + Date.now(),
+                type: type,
+                enabled: true,
+                title: title,
+                content: getDefaultContent(type)
+            };
+            
+            config.contentBlocks.push(newBlock);
+            renderContent();
+            renderBlocksList();
+            document.getElementById('block-title').value = '';
+        }
+        
+        function getDefaultContent(type) {
+            switch (type) {
+                case 'header':
+                    return { greeting: "请输入问候语", name: "请输入姓名", subtitle: "请输入副标题" };
+                case 'text':
+                    return { text: "请输入文本内容" };
+                case 'list':
+                    return { items: ["请输入列表项1", "请输入列表项2"] };
+                case 'custom':
+                    return { html: '<p class="info-text">请输入自定义HTML</p>' };
+                default:
+                    return {};
+            }
+        }
+        
+        // 编辑内容块
+        function editBlock(index) {
+            const block = config.contentBlocks[index];
+            const newTitle = prompt('编辑标题:', block.title);
+            if (newTitle !== null) block.title = newTitle;
+            
+            switch (block.type) {
+                case 'header':
+                    const greeting = prompt('编辑问候语:', block.content.greeting);
+                    const name = prompt('编辑姓名:', block.content.name);
+                    const subtitle = prompt('编辑副标题:', block.content.subtitle);
+                    if (greeting !== null) block.content.greeting = greeting;
+                    if (name !== null) block.content.name = name;
+                    if (subtitle !== null) block.content.subtitle = subtitle;
+                    break;
+                case 'text':
+                    const text = prompt('编辑文本:', block.content.text);
+                    if (text !== null) block.content.text = text;
+                    break;
+                case 'list':
+                    const items = prompt('编辑列表项 (用换行分隔):', block.content.items.join('\n'));
+                    if (items !== null) block.content.items = items.split('\n').filter(item => item.trim());
+                    break;
+                case 'custom':
+                    const html = prompt('编辑HTML:', block.content.html);
+                    if (html !== null) block.content.html = html;
+                    break;
+            }
+            
+            renderContent();
+            renderBlocksList();
+        }
+        
+        // 切换内容块显示
+        function toggleBlock(index) {
+            config.contentBlocks[index].enabled = !config.contentBlocks[index].enabled;
+            renderContent();
+            renderBlocksList();
+        }
+        
+        // 删除内容块
+        function deleteBlock(index) {
+            if (confirm('确定要删除这个内容块吗？')) {
+                config.contentBlocks.splice(index, 1);
+                renderContent();
+                renderBlocksList();
+            }
+        }
+        
+        // 保存配置
+        function saveConfig() {
+            localStorage.setItem('selfIntroConfig', JSON.stringify(config));
+            alert('配置已保存！');
+        }
+        
+        // 导出配置
+        function exportConfig() {
+            const dataStr = JSON.stringify(config, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'self-intro-config.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // 导入配置
+        function importConfig(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    config = JSON.parse(e.target.result);
+                    renderContent();
+                    renderBlocksList();
+                    updateInterface();
+                    alert('配置导入成功！');
+                } catch (error) {
+                    alert('配置文件格式错误！');
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        // 更新界面
+        function updateInterface() {
+            document.getElementById('page-title-input').value = config.pageInfo.title;
+            document.getElementById('background-input').value = config.styles.backgroundImage;
+            document.getElementById('primary-color').value = config.styles.primaryColor;
+            document.getElementById('highlight-color').value = config.styles.highlightColor;
+            document.getElementById('text-color').value = config.styles.infoTextColor;
+        }
+        
+        // 绑定事件
+        document.getElementById('page-title-input').addEventListener('input', (e) => {
+            config.pageInfo.title = e.target.value;
+            document.title = e.target.value;
+        });
+        
+        document.getElementById('background-input').addEventListener('input', (e) => {
+            config.styles.backgroundImage = e.target.value;
+            document.body.style.setProperty('--background-image', `url("${e.target.value}")`);
+        });
+        
+        document.getElementById('primary-color').addEventListener('input', (e) => {
+            config.styles.primaryColor = e.target.value;
+            document.documentElement.style.setProperty('--primary-color', e.target.value);
+        });
+        
+        document.getElementById('highlight-color').addEventListener('input', (e) => {
+            config.styles.highlightColor = e.target.value;
+            document.documentElement.style.setProperty('--highlight-color', e.target.value);
+        });
+        
+        document.getElementById('text-color').addEventListener('input', (e) => {
+            config.styles.infoTextColor = e.target.value;
+            document.documentElement.style.setProperty('--info-text-color', e.target.value);
+        });
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 尝试加载保存的配置
+            const saved = localStorage.getItem('selfIntroConfig');
+            if (saved) {
+                try {
+                    config = JSON.parse(saved);
+                } catch (error) {
+                    console.error('加载保存的配置失败:', error);
+                }
+            }
+            
+            renderContent();
+            renderBlocksList();
+            updateInterface();
+        });
+    </script>
+</body>
+</html>
+
