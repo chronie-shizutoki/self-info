@@ -1,0 +1,62 @@
+{
+    "management": {
+        "title": "コンテンツ管理システム",
+        "page_settings": "ページ設定",
+        "page_title_label": "ページタイトル",
+        "page_title_placeholder": "ページタイトルを入力してください",
+        "background_label": "背景画像",
+        "background_placeholder": "背景画像のURLまたはパスを入力してください",
+        "content_management": "コンテンツブロック管理",
+        "block_type_label": "ブロックタイプ",
+        "block_title_label": "ブロックタイトル",
+        "block_title_placeholder": "ブロックタイトルを入力してください",
+        "add_block": "ブロックを追加",
+        "style_settings": "スタイル設定",
+        "primary_color": "プライマリカラー",
+        "highlight_color": "ハイライトカラー",
+        "text_color": "テキストカラー",
+        "config_management": "設定管理",
+        "save_config": "設定を保存",
+        "export_config": "設定をエクスポート",
+        "import_config": "設定をインポート",
+        "reset_config": "設定をリセット",
+        "edit": "編集",
+        "hide": "非表示",
+        "show": "表示",
+        "delete": "削除",
+        "confirm_delete": "このコンテンツブロックを削除してもよろしいですか？",
+        "confirm_reset": "すべての設定をリセットしてもよろしいですか？すべてのカスタムコンテンツが削除されます。",
+        "config_saved": "設定が保存されました！",
+        "config_imported": "設定のインポートが成功しました！",
+        "config_error": "設定ファイルの形式エラー！",
+        "import_confirm": "設定をインポートすると現在の設定が上書きされます。続行しますか？"
+    },
+    "block_types": {
+        "header": "ヘッダーブロック",
+        "text": "テキストブロック",
+        "list": "リストブロック",
+        "custom": "カスタムブロック"
+    },
+    "content_defaults": {
+        "greeting": "挨拶を入力してください",
+        "name": "お名前を入力してください",
+        "subtitle": "サブタイトルを入力してください",
+        "text": "テキスト内容を入力してください",
+        "list_item": "リスト項目を入力してください",
+        "custom_html": "カスタムHTMLを入力してください",
+        "new_block": "新しいブロック",
+        "personal_info": "個人情報",
+        "about_me": "私について",
+        "about_text": "自己紹介文を入力してください。ここに共有したい内容を何でも書くことができます。"
+    },
+    "prompts": {
+        "edit_title": "タイトルを編集:",
+        "edit_greeting": "挨拶を編集:",
+        "edit_name": "名前を編集:",
+        "edit_subtitle": "サブタイトルを編集:",
+        "edit_text": "テキストを編集:",
+        "edit_list": "リスト項目を編集 (改行で区切る):",
+        "edit_html": "HTMLを編集:"
+    }
+}
+

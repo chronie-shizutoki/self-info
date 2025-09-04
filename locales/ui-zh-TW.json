@@ -1,0 +1,62 @@
+{
+    "management": {
+        "title": "內容管理系統",
+        "page_settings": "頁面設定",
+        "page_title_label": "頁面標題",
+        "page_title_placeholder": "請輸入頁面標題",
+        "background_label": "背景圖片",
+        "background_placeholder": "請輸入背景圖片URL或路徑",
+        "content_management": "內容區塊管理",
+        "block_type_label": "區塊類型",
+        "block_title_label": "區塊標題",
+        "block_title_placeholder": "請輸入區塊標題",
+        "add_block": "新增區塊",
+        "style_settings": "樣式設定",
+        "primary_color": "主色調",
+        "highlight_color": "強調色",
+        "text_color": "文字色",
+        "config_management": "配置管理",
+        "save_config": "儲存配置",
+        "export_config": "匯出配置",
+        "import_config": "匯入配置",
+        "reset_config": "重設配置",
+        "edit": "編輯",
+        "hide": "隱藏",
+        "show": "顯示",
+        "delete": "刪除",
+        "confirm_delete": "確定要刪除這個內容區塊嗎？",
+        "confirm_reset": "確定要重設所有配置嗎？這將清除所有自訂內容。",
+        "config_saved": "配置已儲存！",
+        "config_imported": "配置匯入成功！",
+        "config_error": "配置檔案格式錯誤！",
+        "import_confirm": "匯入配置將覆蓋目前設定，確定繼續嗎？"
+    },
+    "block_types": {
+        "header": "標題區塊",
+        "text": "文字區塊",
+        "list": "清單區塊",
+        "custom": "自訂區塊"
+    },
+    "content_defaults": {
+        "greeting": "請輸入問候語",
+        "name": "請輸入您的姓名",
+        "subtitle": "請輸入副標題",
+        "text": "請輸入文字內容",
+        "list_item": "請輸入清單項目",
+        "custom_html": "請輸入自訂HTML",
+        "new_block": "新區塊",
+        "personal_info": "個人資訊",
+        "about_me": "關於我",
+        "about_text": "請輸入關於您的介紹文字。您可以在這裡寫任何想要分享的內容。"
+    },
+    "prompts": {
+        "edit_title": "編輯標題:",
+        "edit_greeting": "編輯問候語:",
+        "edit_name": "編輯姓名:",
+        "edit_subtitle": "編輯副標題:",
+        "edit_text": "編輯文字:",
+        "edit_list": "編輯清單項目 (用換行分隔):",
+        "edit_html": "編輯HTML:"
+    }
+}
+
